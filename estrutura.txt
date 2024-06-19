@@ -1,0 +1,3 @@
+ecommerce   -> frete
+cliente     -> usuario
+listar_clientes -> listar_usuarios
