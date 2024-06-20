@@ -6,6 +6,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
+import logging
+logger = logging.getLogger(__name__)
 
 @api_view(['GET', 'POST'])
 def listar_clientes(request):
@@ -24,12 +26,14 @@ def listar_clientes(request):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def create_city(request):
-        serializer = CidadeSerializer(data = request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED) 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
+    logger.debug('Recebendo request: %s', request.data)
+    serializer = CidadeSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        logger.debug('Cidade criada com sucesso: %s', serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    logger.error('Erros de validação: %s', serializer.errors)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -44,11 +48,11 @@ class ClientesDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = ClienteSerializer
 
 class CidadeView(ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     queryset = Cidade.objects.all()
     serializer_class = CidadeSerializer
 
 class CidadeDetailView(RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     queryset = Cidade.objects.all()
     serializer_class = CidadeSerializer
