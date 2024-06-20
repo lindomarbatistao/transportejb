@@ -24,7 +24,7 @@ def listar_clientes(request):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def create_city(request):
     logger.debug('Recebendo request: %s', request.data)
     serializer = CidadeSerializer(data=request.data)
