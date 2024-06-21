@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view, permission_classes, action
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework import status, viewsets
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from django.shortcuts import get_object_or_404
 
 @api_view(['GET', 'POST'])
 def listar_clientes(request):
@@ -31,6 +32,13 @@ def create_city(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+@api_view(['DELETE'])
+@permission_classes([AllowAny])  # Adjust permission as necessary
+def delete_city(request, pk):
+    city = get_object_or_404(Cidade, pk=pk)
+    city.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
 
 
     
