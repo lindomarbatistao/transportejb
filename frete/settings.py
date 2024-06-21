@@ -7,7 +7,8 @@ SECRET_KEY = 'django-insecure-pfxb1#uk(c*2^%co*8$wxv8p14emhx6u1mr%_1%o=0d#)b2d70
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['transportejb7.pythonanywhere.com']
+ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['transportejb7.pythonanywhere.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
