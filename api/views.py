@@ -22,7 +22,7 @@ def listar_clientes(request):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 @api_view(['POST'])
-@permission_classes([AllowAny])
+@permission_classes([AllowAny]) #Permissão total
 def create_city(request):
     if request.method == 'POST':
         serializer = CidadeSerializer(data=request.data)
